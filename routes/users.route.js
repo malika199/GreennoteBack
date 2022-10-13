@@ -1,17 +1,17 @@
 const router = require("express").Router();
-// const verify = require("../jsonwebtoken/verifyToken");
-// const usersController = require("../controllers/usersController")
+const verify = require("../jsonwebtoken/verifyToken");
+const usersController = require("../controllers/usersController");
 
-// //UPDATE
-// router.put("/:id", verify, usersController.update);
+//UPDATE
+router.put("/:id", verify, usersController.updateUser);
 
-// //DELETE
-// router.delete("/:id", verify, usersController.delete);
+//DELETE
+router.delete("/:id", verify, usersController.delete);
 
-// //GET
-// router.get("/find/:id", verify, usersController.get);
+//GET
+router.get("/find/:id", verify, usersController.getUser);
 
-// //GET ALL
-// router.get("/", usersController.getAll);
+//GET ALL
+router.get("/", usersController.getAllUsers);
 
 module.exports = router;
