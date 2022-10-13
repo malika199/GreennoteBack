@@ -20,38 +20,35 @@ exports.register = (req, res) => {
 
   user.save().then((user) => res.status(200).json(user));
 };
-exports.login = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      const bytes = CryptoJS.AES.decrypt(
-        user.password,
-        process.env.ACCESS_TOKEN_SECRET
-      );
-      const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
-      originalPassword !== req.body.password &&
-        res.status(401).json({
-          message: "password not valid",
-          auth: false,
-          token: null,
-        });
+exports.login = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    !user && res.status(401).json("Wrong password or username!");
 
-      let userToken = jwt.sign(
-        {
-          id: user._id,
-          isActivate: user.isActivate,
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: 86400,
-        }
-      );
-      res.status(200).send({
-        auth: true,
-        token: userToken,
+    const bytes = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+    originalPassword !== req.body.password &&
+      res.status(401).json({
+        message: "password not valid",
+        auth: false,
+        token: null,
       });
-    })
-    .catch((err) => res.status(404).send(err));
+
+    const accessToken = jwt.sign(
+      { id: user._id, isActivate: user.isActivate },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "5d" }
+    );
+
+    res.status(200).json({ auth: true, token: userToken });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.verifyToken = (req, res) => {
