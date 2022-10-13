@@ -1,27 +1,18 @@
-
 const router = require("express").Router();
-// const verify = require("../jsonwebtoken/verifyToken");
-const notesController = require("../controllers/notesController")
+const verify = require("../jsonWebToken/verifyToken");
+const notesController = require("../controllers/notesController");
 
 //CREATE
-router.post("/", 
-// verify, 
-notesController.create);
+router.post("/", verify, notesController.create);
 
 //UPDATE
-router.put("/:id", 
-// verify, 
-notesController.update);
+router.put("/:id", verify, notesController.update);
 
 //DELETE
-router.delete("/:id", 
-// verify, 
-notesController.delete);
+router.delete("/:id", verify, notesController.delete);
 
 //GET
-router.get("/find/:id", 
-// verify, 
-notesController.get);
+router.get("/find/:id", verify, notesController.get);
 
 //GET ALL
 router.get("/", notesController.getAll);

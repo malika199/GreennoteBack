@@ -1,27 +1,18 @@
-
 const router = require("express").Router();
-// const verify = require("../jsonwebtoken/verifyToken");
-const foldersController = require("../controllers/foldersController")
+const verify = require("../jsonWebToken/verifyToken");
+const foldersController = require("../controllers/foldersController");
 
 //CREATE
-router.post("/", 
-// verify, 
-foldersController.create);
+router.post("/", verify, foldersController.create);
 
 //UPDATE
-router.put("/:id", 
-// verify, 
-foldersController.update);
+router.put("/:id", verify, foldersController.update);
 
 //DELETE
-router.delete("/:id", 
-// verify, 
-foldersController.delete);
+router.delete("/:id", verify, foldersController.delete);
 
 //GET
-router.get("/find/:id", 
-// verify, 
-foldersController.get);
+router.get("/find/:id", verify, foldersController.get);
 
 //GET ALL
 router.get("/", foldersController.getAll);

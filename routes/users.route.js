@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const verify = require("../jsonwebtoken/verifyToken");
+const verify = require("../jsonWebToken/verifyToken");
 const usersController = require("../controllers/usersController");
 
 //UPDATE
