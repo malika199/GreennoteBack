@@ -35,7 +35,7 @@ exports.login = (req, res) => {
           auth: false,
           token: null,
         });
-      
+
       let userToken = jwt.sign(
         {
           id: user._id,
