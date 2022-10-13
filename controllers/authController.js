@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
       { expiresIn: "5d" }
     );
 
-    res.status(200).json({ auth: true, token: userToken });
+    res.status(200).json({ auth: true, token: accessToken });
   } catch (err) {
     res.status(500).json(err);
   }
