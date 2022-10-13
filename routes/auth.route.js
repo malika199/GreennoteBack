@@ -1,16 +1,16 @@
 const router = require("express").Router();
-// const authController = require("../controllers/authController");
-// const verify = require("../jsonwebtoken/verifyToken");
+const authController = require("../controllers/authController");
+ const verify = require("../jsonWebToken/verifyToken");
 
 // //REGISTER
-// router.post("/register", authController.register );
+ router.post("/register", authController.register );
 
 // //LOGIN
-// router.post("/login", authController.login );
+router.post("/login", authController.login );
 
 // //VERIFY TOKEN
-// router.get("/verify", verify, authController.verify );
-
+ router.get("/verify", verify, authController.verifyToken );
+ 
 
 
 module.exports = router;
