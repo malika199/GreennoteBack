@@ -24,7 +24,11 @@ exports.register = (req, res) => {
 exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(401).json("Wrong password or username!");
+    !user &&
+      res.status(401).json({
+        message: "Email not valid",
+        auth: false,
+      });
 
     const bytes = CryptoJS.AES.decrypt(
       user.password,
