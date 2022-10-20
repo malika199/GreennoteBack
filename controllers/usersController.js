@@ -4,8 +4,9 @@ exports.getUser = (req, res) => {
   console.log(req.user);
   User.findById(req.user.id)
     .then((user) => {
-      console.log(user);
-      res.send(user);
+      const { password, ...info } = user;
+      
+      res.status(200).json(info);
     })
     .catch((err) => res.status(404).send(err));
 };
@@ -25,7 +26,8 @@ exports.updateUser = (req, res) => {
     new: true,
   })
     .then((data) => {
-      res.send({ user: data });
+      const { password, ...info } = data;
+      res.status(200).json(info);
     })
     .catch((err) => res.status(500).json({ err: err }));
 };
