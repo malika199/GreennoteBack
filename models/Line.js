@@ -6,6 +6,9 @@ const LineSchema = new Schema(
     type: {
       type: String,
     },
+    text: {
+      type: String
+    },
     url: {
       type: String,
     },
