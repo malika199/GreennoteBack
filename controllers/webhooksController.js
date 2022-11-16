@@ -1,6 +1,5 @@
 require("dotenv").config();
 const User = require("../models/User");
-const Transaction = require("../models/Transaction");
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -31,43 +30,22 @@ exports.stripewebhook = (req, res) => {
   }
   console.log(eventType);
   switch (eventType) {
-    case "payment_intent.created":
-      const transactionCreated = new Transaction({
-          user: data.object.metadata.userId,
-          status: "Pending"
-        })
-        transactionCreated.save().catch(err => console.log(err));
-    break;
-
     case "payment_intent.succeeded":
-      const updateUser = async()=> {
-      try{
+      const updateUser = async () => {
+        try {
           await User.findByIdAndUpdate(
             data.object.metadata.userId,
             {
-              subscribtion: new Date(), 
+              subscribtion: new Date(),
             },
             { new: true }
-          )
-        }catch(err)
-        {console.log(err);}
-      }
-      updateUser()
-      const transaction = new Transaction({
-        user: data.object.metadata.userId,
-        status: "Approved"
-      })
-      transaction.save().catch(err => console.log(err));
-    break;
-
-    case "payment_intent.payment_failed":
-      const transactionDeclined = new Transaction({
-          user: data.object.metadata.userId,
-          status: "Declined"
-        })
-        transactionDeclined.save().catch(err => console.log(err));
-    break;
-
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      updateUser();
+      break;
     default:
   }
   res.sendStatus(200);
