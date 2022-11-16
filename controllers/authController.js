@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "5d" }
     );
-    const { password, ...info } = user;
+    const { password, ...info } = user._doc;
     res.status(200).json({ ...info, token: accessToken });
   } catch (err) {
     res.status(500).json(err);
