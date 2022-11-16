@@ -52,8 +52,8 @@ exports.login = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "5d" }
     );
-
-    res.status(200).json({ auth: true, token: accessToken });
+    const { password, ...info } = user;
+    res.status(200).json({ ...info, token: accessToken });
   } catch (err) {
     res.status(500).json(err);
   }
