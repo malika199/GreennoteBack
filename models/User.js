@@ -25,7 +25,7 @@ const userSchema = new Schema({
     type: Boolean,
   },
   notes: {
-    type: Array
+    type: Schema.Types.ObjectId, ref: 'Note'
   }
 });
 
