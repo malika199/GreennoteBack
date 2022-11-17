@@ -26,6 +26,9 @@ const userSchema = new Schema({
   },
   notes: [
     type: Schema.Types.ObjectId, ref: 'Note'
+  ],
+  folders: [
+    type: Schema.Types.ObjectId, ref: 'Folder'
   ]
 });
 
