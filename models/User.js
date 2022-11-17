@@ -24,6 +24,9 @@ const userSchema = new Schema({
   isActivate: {
     type: Boolean,
   },
+  notes: {
+    type: Array
+  }
 });
 
 module.exports = mongoose.model("User", userSchema);
