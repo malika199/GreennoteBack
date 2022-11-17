@@ -24,9 +24,9 @@ const userSchema = new Schema({
   isActivate: {
     type: Boolean,
   },
-  notes: {
+  notes: [
     type: Schema.Types.ObjectId, ref: 'Note'
-  }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);
