@@ -4,9 +4,8 @@ exports.getUser = (req, res) => {
   console.log(req.user);
   User.findById(req.user.id)
     .then((user) => {
-      
-      const { password, ...info } = user;
-      
+      const { password, ...info } = user._doc;
+
       res.status(200).json(info);
       res.send(user);
     })
@@ -28,8 +27,8 @@ exports.updateUser = (req, res) => {
     new: true,
   })
     .then((data) => {
-      const { password, ...info } = data;
-      
+      const { password, ...info } = data._doc;
+
       res.status(200).json(info);
     })
     .catch((err) => res.status(500).json({ err: err }));
